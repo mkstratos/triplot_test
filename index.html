@@ -32,13 +32,13 @@
       }
     </style>
 
-    <script type="module" crossorigin src="assets/index.307d873f.js"></script>
-    <link rel="stylesheet" href="assets/index.b7955e9e.css">
+    <script type="module" crossorigin src="/triplot_test/assets/index.adc03a38.js"></script>
+    <link rel="stylesheet" href="/triplot_test/assets/index.b7955e9e.css">
   </head>
   <body>
     <div class="sidenav">
       <a href="index.html" style="padding-left:0">
-      <img src="assets/TRI_Logo_Sm.99bcf0a6.png" alt="Welcome to TRIPlot" />
+      <img src="/triplot_test/assets/TRI_Logo_Sm.99bcf0a6.png" alt="Welcome to TRIPlot" />
       </a>
       <a href="index.html">Home</a>
     </div>
@@ -63,7 +63,41 @@
           </div>
 
           <!--Slider script-->
-          <script src="slider.js"></script>
+          <script >
+            window.onload = function () {
+              slideOne();
+              slideTwo();
+            }
+            let sliderMin = document.getElementById("min-value-input");
+            let sliderMax = document.getElementById("max-value-input");
+            let displayValMin = document.getElementById("min-value-output");
+            let displayValMax = document.getElementById("max-value-output");
+            let minGap = sliderMin.step;
+            let sliderTrack = document.querySelector(".slider-track");
+            let sliderLimitValue = document.getElementById("max-value-input").max;
+            //displayValMin.value = sliderMin.value;
+            //displayValMax.value = sliderMax.value;
+            function slideOne() {
+                if (parseInt(sliderMax.value) - parseInt(sliderMin.value) <= minGap) {
+                    sliderMin.value = parseInt(sliderMax.value) - minGap;
+                }
+                displayValMin.textContent = parseFloat(sliderMin.value).toFixed(3);
+                fillColor();
+            }
+            function slideTwo() {
+                if (parseInt(sliderMax.value) - parseInt(sliderMin.value) <= minGap) {
+                    sliderMax.value = parseInt(sliderMin.value) + minGap;
+                }
+                displayValMax.textContent = parseFloat(sliderMax.value).toFixed(3);
+                fillColor();
+            }
+            function fillColor() {
+                percent1 = (sliderMin.value / sliderLimitValue) * 100;
+                percent2 = (sliderMax.value / sliderLimitValue) * 100;
+                sliderTrack.style.background = `linear-gradient(to right, #dadae5 ${percent1}% , #3264fe ${percent1}% , #3264fe ${percent2}%, #dadae5 ${percent2}%)`;
+            }
+          </script>
+          <!--script src="slider.js"></script-->
         </div>
 
         <div id="map" class="map"></div>
